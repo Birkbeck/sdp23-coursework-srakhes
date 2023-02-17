@@ -2,6 +2,9 @@ package sml;
 
 import java.io.IOException;
 
+import static sml.Registers.Register.EAX;
+import static sml.Registers.Register.EBX;
+
 public class Main {
 	/**
 	 * Initialises the system and executes the program.
