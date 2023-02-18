@@ -1,5 +1,6 @@
 package sml;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,7 +9,7 @@ import java.util.Objects;
 
 /**
  *
- * @author ...
+ * @author Birkbeck College, and Samuel Rakhes
  */
 public final class Labels {
 	private final Map<String, Integer> labels = new HashMap<>();
@@ -19,7 +20,7 @@ public final class Labels {
 	 * @param label the label
 	 * @param address the address the label refers to
 	 */
-	public void addLabel(String label, int address) {
+	public void addLabel(String label, int address) throws IOException {
 //		try {
 //			Objects.requireNonNull(label);
 //			if (labels.containsKey(label)) {
@@ -40,6 +41,7 @@ public final class Labels {
 		// TODO: add a catch here to catch an exception raised if there are duplicate labels.
 		if (labels.containsKey(label)) {
 			System.out.println("Duplicate labels are not allowed in your SML file: " + label + " has been used as a label two (or more) times.");
+//			throw new IOException("Error Message");
 		}
 		labels.put(label, address);
 	}

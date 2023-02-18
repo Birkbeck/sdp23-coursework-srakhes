@@ -11,3 +11,7 @@
 
 ### Invalid input tests
 - 
+
+
+
+## Try to break the translator using sml input files and adapt program to catch errors before introducing any new Instructions!!!

@@ -71,7 +71,7 @@ class AddInstructionTest {
     registers.set(EAX, 1);
     registers.set(EBX, 2);
     Instruction instruction = new AddInstruction(null, EAX, EBX);
-    Assertions.assertEquals(true, instruction.equals(instruction));
+    Assertions.assertTrue(instruction.equals(instruction));
   }
 
   @Test
@@ -81,7 +81,7 @@ class AddInstructionTest {
     registers.set(EBX, 2);
     Instruction instruction = new AddInstruction(null, EAX, EBX);
     Instruction instructionCopy = new AddInstruction(null, EAX, EBX);
-    Assertions.assertEquals(true, instruction.equals(instructionCopy));
+    Assertions.assertTrue(instruction.equals(instructionCopy));
   }
 
   @Test
@@ -93,7 +93,7 @@ class AddInstructionTest {
     registers.set(EDX, 4);
     Instruction instruction = new AddInstruction(null, EAX, EBX);
     Instruction instructionDiff = new AddInstruction(null, ECX, EDX);
-    Assertions.assertEquals(false, instruction.equals(instructionDiff));
+    Assertions.assertFalse(instruction.equals(instructionDiff));
   }
 
   @Test
@@ -103,7 +103,7 @@ class AddInstructionTest {
     registers.set(EBX, 2);
     Instruction instruction = new AddInstruction(null, EAX, EBX);
     Instruction instructionCopy = new AddInstruction(null, EAX, EBX);
-    Assertions.assertEquals(true, instruction.hashCode() == instructionCopy.hashCode());
+    Assertions.assertTrue(instruction.hashCode() == instructionCopy.hashCode());
   }
 
   @Test
@@ -115,6 +115,6 @@ class AddInstructionTest {
     registers.set(EDX, 4);
     Instruction instruction = new AddInstruction(null, EAX, EBX);
     Instruction instructionDiff = new AddInstruction(null, ECX, EDX);
-    Assertions.assertEquals(false, instruction.hashCode() == instructionDiff.hashCode());
+    Assertions.assertFalse(instruction.hashCode() == instructionDiff.hashCode());
   }
 }
