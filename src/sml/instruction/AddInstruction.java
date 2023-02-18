@@ -42,21 +42,23 @@ public class AddInstruction extends Instruction {
 	//	TODO: Override equals
 	@Override
 	public boolean equals(Object o) {
-		if (o == this) {
-			return true;
-		}
-		if (!(o instanceof AddInstruction)) {
-			return false;
-		}
-		if (o == null) {
-			return false;
-		}
-		AddInstruction oCast = (AddInstruction) o; // add a try catch block to catch cast error and return false.
-
-//		if (this.result == o.result && this.source == o.source) {
+//		if (o == this) {
 //			return true;
 //		}
-	return false;
+//		if (!(o instanceof AddInstruction)) {
+//			return false;
+//		}
+//		if (o == null) {
+//			return false;
+//		}
+//		AddInstruction oCast = (AddInstruction) o; // add a try catch block to catch cast error and return false.
+		if (this == o) { return true; } // TODO: this may be be necessary reread notes and omit if not needed.
+		if (o instanceof AddInstruction that) {
+			return this.result == that.result
+					&& this.source == that.source
+					&& this.opcode == that.opcode;
+		}
+		return false;
 	}
 }
 

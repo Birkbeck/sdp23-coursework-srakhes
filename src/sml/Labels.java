@@ -1,7 +1,5 @@
 package sml;
 
-import sml.customExceptions.DuplicateLabelSMLInputException;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
