@@ -53,12 +53,11 @@ public abstract class Instruction {
 	@Override
 	public abstract String toString();
 
-//	@Override
-//	public abstract boolean equals(Object o);
-//
-//	@Override
-//	public abstract int hashCode();
+	@Override
+	public abstract boolean equals(Object o);
 
-	// TODO: Temporarily disabled above - re-enable!
+	@Override
+	public abstract int hashCode();
+
 	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
 }
