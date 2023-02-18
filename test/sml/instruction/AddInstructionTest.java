@@ -64,4 +64,57 @@ class AddInstructionTest {
     instruction.execute(machine);
     Assertions.assertEquals(0, machine.getRegisters().get(EAX));
   }
+
+  @Test
+  @DisplayName("Test of AddInstruction overridden equals() method with two identical instances of AddInstruction")
+  void executeValidFive() {
+    registers.set(EAX, 1);
+    registers.set(EBX, 2);
+    Instruction instruction = new AddInstruction(null, EAX, EBX);
+    Assertions.assertEquals(true, instruction.equals(instruction));
+  }
+
+  @Test
+  @DisplayName("Test of AddInstruction overridden equals() method with two identical but separate instances of AddInstruction")
+  void executeValidSix() {
+    registers.set(EAX, 1);
+    registers.set(EBX, 2);
+    Instruction instruction = new AddInstruction(null, EAX, EBX);
+    Instruction instructionCopy = new AddInstruction(null, EAX, EBX);
+    Assertions.assertEquals(true, instruction.equals(instructionCopy));
+  }
+
+  @Test
+  @DisplayName("Test of AddInstruction overridden equals() method with two different instances of AddInstruction")
+  void executeValidSeven() {
+    registers.set(EAX, 1);
+    registers.set(EBX, 2);
+    registers.set(ECX, 3);
+    registers.set(EDX, 4);
+    Instruction instruction = new AddInstruction(null, EAX, EBX);
+    Instruction instructionDiff = new AddInstruction(null, ECX, EDX);
+    Assertions.assertEquals(false, instruction.equals(instructionDiff));
+  }
+
+  @Test
+  @DisplayName("Test of AddInstruction overridden hashCode() method with two identical but separate instances of AddInstruction")
+  void executeValidEight() {
+    registers.set(EAX, 1);
+    registers.set(EBX, 2);
+    Instruction instruction = new AddInstruction(null, EAX, EBX);
+    Instruction instructionCopy = new AddInstruction(null, EAX, EBX);
+    Assertions.assertEquals(true, instruction.hashCode() == instructionCopy.hashCode());
+  }
+
+  @Test
+  @DisplayName("Test of AddInstruction overridden equals() method with two different instances of AddInstruction")
+  void executeValidNine() {
+    registers.set(EAX, 1);
+    registers.set(EBX, 2);
+    registers.set(ECX, 3);
+    registers.set(EDX, 4);
+    Instruction instruction = new AddInstruction(null, EAX, EBX);
+    Instruction instructionDiff = new AddInstruction(null, ECX, EDX);
+    Assertions.assertEquals(false, instruction.hashCode() == instructionDiff.hashCode());
+  }
 }
