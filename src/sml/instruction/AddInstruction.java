@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 // TODO: write a JavaDoc for the class
 
 /**
@@ -52,7 +54,7 @@ public class AddInstruction extends Instruction {
 //			return false;
 //		}
 //		AddInstruction oCast = (AddInstruction) o; // add a try catch block to catch cast error and return false.
-		if (this == o) { return true; } // TODO: this may be be necessary reread notes and omit if not needed.
+		if (this == o) { return true; } // TODO: this may not be necessary - reread notes and omit if not needed!
 		if (o instanceof AddInstruction that) {
 			return this.result == that.result
 					&& this.source == that.source
@@ -60,10 +62,9 @@ public class AddInstruction extends Instruction {
 		}
 		return false;
 	}
+	//	TODO: Override hashCode
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.result, this.source);
+	}
 }
-
-
-
-
-//	@Override
-//	TODO: Override hashCode
