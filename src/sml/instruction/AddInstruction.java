@@ -4,10 +4,14 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
-// TODO: write a JavaDoc for th   e class
+// TODO: write a JavaDoc for the class
 
 /**
- * @author
+ *
+ *
+ *
+ *
+ * @author Birkbeck College, and Samuel Rakhes
  */
 
 public class AddInstruction extends Instruction {
@@ -34,4 +38,30 @@ public class AddInstruction extends Instruction {
 	public String toString() {
 		return getLabelString() + getOpcode() + " " + result + " " + source;
 	}
+
+	//	TODO: Override equals
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+		if (!(o instanceof AddInstruction)) {
+			return false;
+		}
+		if (o == null) {
+			return false;
+		}
+		AddInstruction oCast = (AddInstruction) o; // add a try catch block to catch cast error and return false.
+
+//		if (this.result == o.result && this.source == o.source) {
+//			return true;
+//		}
+	return false;
+	}
 }
+
+
+
+
+//	@Override
+//	TODO: Override hashCode

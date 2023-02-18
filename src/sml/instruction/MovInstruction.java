@@ -7,7 +7,7 @@ import sml.RegisterName;
 // TODO: write a JavaDoc for the class
 
 /**
- * @author
+ * @author Birkbeck College, and Samuel Rakhes
  */
 
 public class MovInstruction extends Instruction {
@@ -19,7 +19,7 @@ public class MovInstruction extends Instruction {
 	public MovInstruction(String label, RegisterName result, Integer source) {
 		super(label, OP_CODE);
 		this.result = result;
-		this.source = source;
+		this.source = source; //possibly rename this to prevent ambiguity with other register-based variables.
 	}
 
 	@Override
