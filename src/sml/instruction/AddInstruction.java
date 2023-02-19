@@ -65,6 +65,6 @@ public class AddInstruction extends Instruction {
 	//	TODO: Override hashCode
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.result, this.source);
+		return Objects.hash(this.result, this.source); //could also multiply result by a prime number
 	}
 }
