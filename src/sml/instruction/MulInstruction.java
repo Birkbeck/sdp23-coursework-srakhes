@@ -7,7 +7,6 @@ import sml.RegisterName;
 import java.util.Objects;
 
 import static java.lang.Math.multiplyExact;
-import static java.lang.Math.subtractExact;
 
 // TODO: write a JavaDoc for the class
 
@@ -35,7 +34,7 @@ public class MulInstruction extends Instruction {
 //		m.getRegisters().set(result, value1 * value2);
 		m.getRegisters().set(result, multiplyExact(value1, value2));
 		// Will throw and ArithmeticException if over/underflow occur
-		// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/Math.html#subtractExact(int,int)
+		// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/Math.html#multiplyExact(int,int)
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 
