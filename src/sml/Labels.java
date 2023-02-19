@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 // TODO: write a JavaDoc for the class
 
@@ -58,7 +59,7 @@ public final class Labels {
 		// TODO: Where can NullPointerException be thrown here?
 		//       (Write an explanation.)
 		//       Add code to deal with non-existent labels.
-		 //labels.get(label);
+		// return labels.get(label);
 	}
 
 	/**
@@ -69,8 +70,12 @@ public final class Labels {
 	 */
 	@Override
 	public String toString() {
+		String returnStr = labels.entrySet().stream()
+				.sorted(Map.Entry.comparingByKey())
+				.map(e -> e.getKey() + " -> " + e.getValue())
+				.collect(Collectors.joining(", ", "[", "]")) ;
 		// TODO: Implement the method using the Stream API (see also class Registers).
-		return "";
+		return returnStr;
 	}
 
 	// TODO: Implement equals and hashCode (needed in class Machine).
