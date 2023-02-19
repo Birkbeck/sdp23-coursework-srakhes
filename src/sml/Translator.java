@@ -1,5 +1,6 @@
 package sml;
 
+import sml.customExceptions.InvalidLabelSMLInputException;
 import sml.instruction.*;
 
 import java.io.File;
@@ -32,7 +33,7 @@ public final class Translator {
     // prog (the program)
     // return "no errors were detected"
 
-    public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException {
+    public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException, InvalidLabelSMLInputException {
         try (var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
             labels.reset();
             program.clear();
@@ -49,6 +50,8 @@ public final class Translator {
                     program.add(instruction);
                 }
             }
+        } catch (InvalidLabelSMLInputException e) {
+            throw e;
         }
     }
 

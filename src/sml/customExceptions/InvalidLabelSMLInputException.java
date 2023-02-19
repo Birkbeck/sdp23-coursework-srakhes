@@ -6,8 +6,8 @@ package sml.customExceptions;
  *
  * @author Samuel Rakhes
  */
-public class DuplicateLabelSMLInputException extends Exception {
-    public DuplicateLabelSMLInputException(String errorMessage){
+public class InvalidLabelSMLInputException extends Exception {
+    public InvalidLabelSMLInputException(String errorMessage){
         super(errorMessage);
     }
 }

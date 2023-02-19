@@ -1,9 +1,8 @@
 package sml;
 
-import java.io.IOException;
+import sml.customExceptions.InvalidLabelSMLInputException;
 
-import static sml.Registers.Register.EAX;
-import static sml.Registers.Register.EBX;
+import java.io.IOException;
 
 public class Main {
 	/**
@@ -11,7 +10,7 @@ public class Main {
 	 *
 	 * @param args name of the file containing the program text.
 	 */
-	public static void main(String... args) {
+	public static void main(String... args) throws InvalidLabelSMLInputException {
 		if (args.length != 1) {
 			System.err.println("Incorrect number of arguments - Machine <file> - required");
 			System.exit(-1);
@@ -33,6 +32,9 @@ public class Main {
 		}
 		catch (IOException e) {
 			System.out.println("Error reading the program from " + args[0]);
+		}
+		catch (InvalidLabelSMLInputException | NullPointerException e) {
+			throw e;
 		}
 	}
 }
