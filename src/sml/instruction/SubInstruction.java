@@ -29,7 +29,10 @@ public class SubInstruction extends Instruction {
 	public int execute(Machine m) {
 		int value1 = m.getRegisters().get(result);
 		int value2 = m.getRegisters().get(source);
-		m.getRegisters().set(result, value1 - value2);
+//		m.getRegisters().set(result, value1 - value2);
+		m.getRegisters().set(result, Math.subtractExact(value1, value2));
+		// Will throw and ArithmeticException if over/underflow occur
+		// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/Math.html#subtractExact(int,int)
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 

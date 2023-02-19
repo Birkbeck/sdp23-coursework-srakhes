@@ -21,6 +21,12 @@ public class Main {
 			Machine m = new Machine(new Registers());
 			t.readAndTranslate(m.getLabels(), m.getProgram());
 
+//			TODO: Remove these after testing
+//			int maxIntAdd = Integer.MAX_VALUE;
+//			int maxIntSub = Integer.MIN_VALUE;
+//			System.out.println(Math.addExact(maxIntAdd , 1));
+//			System.out.println(Math.subtractExact(maxIntSub , 1));
+
 			System.out.println("Here is the program; it has " + m.getProgram().size() + " instructions.");
 			System.out.println(m);
 

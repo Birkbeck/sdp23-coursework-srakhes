@@ -1,17 +1,17 @@
 package sml.instruction;
 
 import org.junit.jupiter.api.*;
-
 import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
 
-import static sml.Registers.Register.*;
+import static sml.Registers.Register.EAX;
+import static sml.Registers.Register.EBX;
 
 /**
  * @author Birkbeck College, and Samuel Rakhes
  */
-class AddInstructionTest {
+class SubInstructionTest {
   private Machine machine;
   private Registers registers;
 
@@ -28,7 +28,7 @@ class AddInstructionTest {
   }
 
   @Nested
-  @DisplayName("Test of Valid inputs to the Class AddInstruction and execution of execute() method")
+  @DisplayName("Test of Valid inputs to the Class SubInstruction and execution of execute() method")
   class ValidAdditionTests {
 
     @Test
@@ -37,9 +37,9 @@ class AddInstructionTest {
     void validAdditionTest() {
       registers.set(EAX, 5);
       registers.set(EBX, 6);
-      Instruction instruction = new AddInstruction(null, EAX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EBX);
       instruction.execute(machine);
-      Assertions.assertEquals(11, machine.getRegisters().get(EAX));
+      Assertions.assertEquals(-1, machine.getRegisters().get(EAX));
     }
 
     @Test
@@ -48,9 +48,9 @@ class AddInstructionTest {
     void validAdditionTestTwo() {
       registers.set(EAX, -5);
       registers.set(EBX, -5);
-      Instruction instruction = new AddInstruction(null, EAX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EBX);
       instruction.execute(machine);
-      Assertions.assertEquals(-10, machine.getRegisters().get(EAX));
+      Assertions.assertEquals(0, machine.getRegisters().get(EAX));
     }
 
     @Test
@@ -59,7 +59,7 @@ class AddInstructionTest {
     void validAdditionTestThree() {
       registers.set(EAX, 0);
       registers.set(EBX, 0);
-      Instruction instruction = new AddInstruction(null, EAX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EBX);
       instruction.execute(machine);
       Assertions.assertEquals(0, machine.getRegisters().get(EAX));
     }
@@ -70,9 +70,9 @@ class AddInstructionTest {
     void validAdditionTestFour() {
       registers.set(EAX, -5);
       registers.set(EBX, 6);
-      Instruction instruction = new AddInstruction(null, EAX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EBX);
       instruction.execute(machine);
-      Assertions.assertEquals(1, machine.getRegisters().get(EAX));
+      Assertions.assertEquals(-11, machine.getRegisters().get(EAX));
     }
 
     @Test
@@ -81,9 +81,9 @@ class AddInstructionTest {
     void validAdditionTestFive() {
       registers.set(EAX, 5);
       registers.set(EBX, -6);
-      Instruction instruction = new AddInstruction(null, EAX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EBX);
       instruction.execute(machine);
-      Assertions.assertEquals(-1, machine.getRegisters().get(EAX));
+      Assertions.assertEquals(11, machine.getRegisters().get(EAX));
     }
 
     @Test
@@ -92,7 +92,7 @@ class AddInstructionTest {
     void validAdditionTestSix() {
       registers.set(EAX, 5);
       registers.set(EBX, 0);
-      Instruction instruction = new AddInstruction(null, EAX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EBX);
       instruction.execute(machine);
       Assertions.assertEquals(5, machine.getRegisters().get(EAX));
     }
@@ -103,18 +103,18 @@ class AddInstructionTest {
     void validAdditionTestSeven() {
       registers.set(EAX, 0);
       registers.set(EBX, -6);
-      Instruction instruction = new AddInstruction(null, EAX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EBX);
       instruction.execute(machine);
-      Assertions.assertEquals(-6, machine.getRegisters().get(EAX));
+      Assertions.assertEquals(6, machine.getRegisters().get(EAX));
     }
   }
 
   @Nested
-  @DisplayName("Test of Valid equal inputs to the Class AddInstruction and execution of overridden equals() method")
+  @DisplayName("Test of Valid equal inputs to the Class SubInstruction and execution of overridden equals() method")
   class ValidEqualsTests {
 
     @Nested
-    @DisplayName("Test of Reflexivity (Against the same instances of AddInstruction) for the overridden equals() method")
+    @DisplayName("Test of Reflexivity (Against the same instances of SubInstruction) for the overridden equals() method")
     class ValidReflexivityTests {
 
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
@@ -124,7 +124,7 @@ class AddInstructionTest {
       void validReflexiveEquals() {
         registers.set(EAX, 1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instruction);
       }
 
@@ -134,7 +134,7 @@ class AddInstructionTest {
       void validReflexiveEqualsTwo() {
         registers.set(EAX, -1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instruction);
       }
 
@@ -144,7 +144,7 @@ class AddInstructionTest {
       void validReflexiveEqualsThree() {
         registers.set(EAX, 0);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instruction);
       }
 
@@ -154,7 +154,7 @@ class AddInstructionTest {
       void validReflexiveEqualsFour() {
         registers.set(EAX, -1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instruction);
       }
 
@@ -164,7 +164,7 @@ class AddInstructionTest {
       void validReflexiveEqualsFive() {
         registers.set(EAX, 1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instruction);
       }
 
@@ -174,7 +174,7 @@ class AddInstructionTest {
       void validReflexiveEqualsSix() {
         registers.set(EAX, 1);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instruction);
       }
 
@@ -184,13 +184,13 @@ class AddInstructionTest {
       void validReflexiveEqualsSeven() {
         registers.set(EAX, 0);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instruction);
       }
     }
 
     @Nested
-    @DisplayName("Test of Symmetry (Against two separate but identical instances of AddInstruction) for the overridden equals() method")
+    @DisplayName("Test of Symmetry (Against two separate but identical instances of SubInstruction) for the overridden equals() method")
     class ValidSymmetryTests {
       @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
@@ -198,8 +198,8 @@ class AddInstructionTest {
       void validSymmetricEquals() {
         registers.set(EAX, 1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instruction);
       }
@@ -210,8 +210,8 @@ class AddInstructionTest {
       void validSymmetricEqualsTwo() {
         registers.set(EAX, -1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instruction);
       }
@@ -222,8 +222,8 @@ class AddInstructionTest {
       void validSymmetricEqualsThree() {
         registers.set(EAX, 0);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instruction);
       }
@@ -234,8 +234,8 @@ class AddInstructionTest {
       void validSymmetricEqualsFour() {
         registers.set(EAX, -1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instruction);
       }
@@ -246,8 +246,8 @@ class AddInstructionTest {
       void validSymmetricEqualsFive() {
         registers.set(EAX, 1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instruction);
       }
@@ -258,8 +258,8 @@ class AddInstructionTest {
       void validSymmetricEqualsSix() {
         registers.set(EAX, 1);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instruction);
       }
@@ -270,15 +270,15 @@ class AddInstructionTest {
       void validSymmetricEqualsSeven() {
         registers.set(EAX, 0);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instruction);
       }
     }
 
     @Nested
-    @DisplayName("Test of Transitivity (Against three separate but identical instances of AddInstruction) for the overridden equals() method")
+    @DisplayName("Test of Transitivity (Against three separate but identical instances of SubInstruction) for the overridden equals() method")
     class ValidTransitivityTests {
       @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
@@ -286,9 +286,9 @@ class AddInstructionTest {
       void validTransitiveEquals() {
         registers.set(EAX, 1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instructionThree);
         Assertions.assertEquals(instruction, instructionThree);
@@ -300,9 +300,9 @@ class AddInstructionTest {
       void validTransitiveEqualsTwo() {
         registers.set(EAX, -1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instructionThree);
         Assertions.assertEquals(instruction, instructionThree);
@@ -314,9 +314,9 @@ class AddInstructionTest {
       void validTransitiveEqualsThree() {
         registers.set(EAX, 0);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instructionThree);
         Assertions.assertEquals(instruction, instructionThree);
@@ -328,9 +328,9 @@ class AddInstructionTest {
       void validTransitiveEqualsFour() {
         registers.set(EAX, -1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instructionThree);
         Assertions.assertEquals(instruction, instructionThree);
@@ -342,9 +342,9 @@ class AddInstructionTest {
       void validTransitiveEqualsFive() {
         registers.set(EAX, 1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instructionThree);
         Assertions.assertEquals(instruction, instructionThree);
@@ -356,9 +356,9 @@ class AddInstructionTest {
       void validTransitiveEqualsSix() {
         registers.set(EAX, 1);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instructionThree);
         Assertions.assertEquals(instruction, instructionThree);
@@ -370,9 +370,9 @@ class AddInstructionTest {
       void validTransitiveEqualsSeven() {
         registers.set(EAX, 0);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instructionThree);
         Assertions.assertEquals(instruction, instructionThree);
@@ -380,7 +380,7 @@ class AddInstructionTest {
     }
 
     @Nested
-    @DisplayName("Test that AddInstruction not equal to null for the overridden equals() method")
+    @DisplayName("Test that SubInstruction not equal to null for the overridden equals() method")
     class ValidNonNullTests {
       @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
@@ -388,7 +388,7 @@ class AddInstructionTest {
       void validNonNullEquals() {
         registers.set(EAX, 1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertNotEquals(instruction, null);
       }
 
@@ -398,7 +398,7 @@ class AddInstructionTest {
       void validNonNullEqualsTwo() {
         registers.set(EAX, -1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertNotEquals(instruction, null);
       }
 
@@ -408,7 +408,7 @@ class AddInstructionTest {
       void validNonNullEqualsThree() {
         registers.set(EAX, 0);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertNotEquals(instruction, null);
       }
 
@@ -418,7 +418,7 @@ class AddInstructionTest {
       void validNonNullEqualsFour() {
         registers.set(EAX, -1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertNotEquals(instruction, null);
       }
 
@@ -428,7 +428,7 @@ class AddInstructionTest {
       void validNonNullEqualsFive() {
         registers.set(EAX, 1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertNotEquals(instruction, null);
       }
 
@@ -438,7 +438,7 @@ class AddInstructionTest {
       void validNonNullEqualsSix() {
         registers.set(EAX, 1);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertNotEquals(instruction, null);
       }
 
@@ -448,14 +448,14 @@ class AddInstructionTest {
       void validNonNullEqualsSeven() {
         registers.set(EAX, 0);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
         Assertions.assertNotEquals(instruction, null);
       }
     }
   }
 
   @Nested
-  @DisplayName("Test of Valid Unequal inputs to the Class AddInstruction and execution of overridden equals() method")
+  @DisplayName("Test of Valid Unequal inputs to the Class SubInstruction and execution of overridden equals() method")
   class ValidNonEqualsTests {
     @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
@@ -463,8 +463,8 @@ class AddInstructionTest {
     void validSymmetricUnequal() {
       registers.set(EAX, 1);
       registers.set(EBX, 2);
-      Instruction instruction = new AddInstruction(null, EAX, EAX);
-      Instruction instructionTwo = new AddInstruction(null, EBX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EAX);
+      Instruction instructionTwo = new SubInstruction(null, EBX, EBX);
       Assertions.assertNotEquals(instruction, instructionTwo);
       Assertions.assertNotEquals(instructionTwo, instruction);
     }
@@ -475,8 +475,8 @@ class AddInstructionTest {
     void validSymmetricEqualsTwo() {
       registers.set(EAX, -1);
       registers.set(EBX, -2);
-      Instruction instruction = new AddInstruction(null, EAX, EAX);
-      Instruction instructionTwo = new AddInstruction(null, EBX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EAX);
+      Instruction instructionTwo = new SubInstruction(null, EBX, EBX);
       Assertions.assertNotEquals(instruction, instructionTwo);
       Assertions.assertNotEquals(instructionTwo, instruction);
     }
@@ -487,8 +487,8 @@ class AddInstructionTest {
     void validSymmetricEqualsThree() {
       registers.set(EAX, 0);
       registers.set(EBX, 0);
-      Instruction instruction = new AddInstruction(null, EAX, EAX);
-      Instruction instructionTwo = new AddInstruction(null, EBX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EAX);
+      Instruction instructionTwo = new SubInstruction(null, EBX, EBX);
       Assertions.assertNotEquals(instruction, instructionTwo);
       Assertions.assertNotEquals(instructionTwo, instruction);
     }
@@ -499,8 +499,8 @@ class AddInstructionTest {
     void validSymmetricEqualsFour() {
       registers.set(EAX, -1);
       registers.set(EBX, 2);
-      Instruction instruction = new AddInstruction(null, EAX, EAX);
-      Instruction instructionTwo = new AddInstruction(null, EBX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EAX);
+      Instruction instructionTwo = new SubInstruction(null, EBX, EBX);
       Assertions.assertNotEquals(instruction, instructionTwo);
       Assertions.assertNotEquals(instructionTwo, instruction);
     }
@@ -511,8 +511,8 @@ class AddInstructionTest {
     void validSymmetricEqualsFive() {
       registers.set(EAX, 1);
       registers.set(EBX, -2);
-      Instruction instruction = new AddInstruction(null, EAX, EAX);
-      Instruction instructionTwo = new AddInstruction(null, EBX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EAX);
+      Instruction instructionTwo = new SubInstruction(null, EBX, EBX);
       Assertions.assertNotEquals(instruction, instructionTwo);
       Assertions.assertNotEquals(instructionTwo, instruction);
     }
@@ -523,8 +523,8 @@ class AddInstructionTest {
     void validSymmetricEqualsSix() {
       registers.set(EAX, 1);
       registers.set(EBX, 0);
-      Instruction instruction = new AddInstruction(null, EAX, EAX);
-      Instruction instructionTwo = new AddInstruction(null, EBX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EAX);
+      Instruction instructionTwo = new SubInstruction(null, EBX, EBX);
       Assertions.assertNotEquals(instruction, instructionTwo);
       Assertions.assertNotEquals(instructionTwo, instruction);
     }
@@ -535,18 +535,18 @@ class AddInstructionTest {
     void validSymmetricEqualsSeven() {
       registers.set(EAX, 0);
       registers.set(EBX, -2);
-      Instruction instruction = new AddInstruction(null, EAX, EAX);
-      Instruction instructionTwo = new AddInstruction(null, EBX, EBX);
+      Instruction instruction = new SubInstruction(null, EAX, EAX);
+      Instruction instructionTwo = new SubInstruction(null, EBX, EBX);
       Assertions.assertNotEquals(instruction, instructionTwo);
       Assertions.assertNotEquals(instructionTwo, instruction);
     }
   }
   @Nested
-  @DisplayName("Test of Reflexivity, Symmetry and Transitivity (Against three separate but identical instances of AddInstruction) for the overridden hashCode() method")
+  @DisplayName("Test of Reflexivity, Symmetry and Transitivity (Against three separate but identical instances of SubInstruction) for the overridden hashCode() method")
   class ValidHashCodeTests {
 
     @Nested
-    @DisplayName("Test of the overridden hashCode() method where AddInstructions are equal")
+    @DisplayName("Test of the overridden hashCode() method where SubInstructions are equal")
     class ValidHashCodeEqualTests {
       @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
@@ -554,9 +554,9 @@ class AddInstructionTest {
       void validHashCodeEquals() {
         registers.set(EAX, 1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         // Reflexivity
         Assertions.assertEquals(instruction, instruction);
         Assertions.assertEquals(instructionTwo, instructionTwo);
@@ -592,9 +592,9 @@ class AddInstructionTest {
       void validHashCodeEqualsTwo() {
         registers.set(EAX, -1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         // Reflexivity
         Assertions.assertEquals(instruction, instruction);
         Assertions.assertEquals(instructionTwo, instructionTwo);
@@ -630,9 +630,9 @@ class AddInstructionTest {
       void validHashCodeEqualsThree() {
         registers.set(EAX, 0);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         // Reflexivity
         Assertions.assertEquals(instruction, instruction);
         Assertions.assertEquals(instructionTwo, instructionTwo);
@@ -668,9 +668,9 @@ class AddInstructionTest {
       void validHashCodeEqualsFour() {
         registers.set(EAX, -1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         // Reflexivity
         Assertions.assertEquals(instruction, instruction);
         Assertions.assertEquals(instructionTwo, instructionTwo);
@@ -706,9 +706,9 @@ class AddInstructionTest {
       void validHashCodeEqualsFive() {
         registers.set(EAX, 1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         // Reflexivity
         Assertions.assertEquals(instruction, instruction);
         Assertions.assertEquals(instructionTwo, instructionTwo);
@@ -744,9 +744,9 @@ class AddInstructionTest {
       void validHashCodeEqualsSix() {
         registers.set(EAX, 1);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         // Reflexivity
         Assertions.assertEquals(instruction, instruction);
         Assertions.assertEquals(instructionTwo, instructionTwo);
@@ -782,9 +782,9 @@ class AddInstructionTest {
       void validHashCodeEqualsSeven() {
         registers.set(EAX, 0);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EBX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EAX, EBX);
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EAX, EBX);
         // Reflexivity
         Assertions.assertEquals(instruction, instruction);
         Assertions.assertEquals(instructionTwo, instructionTwo);
@@ -816,7 +816,7 @@ class AddInstructionTest {
     }
 
     @Nested
-    @DisplayName("Test of the overridden hashCode() method where AddInstructions are not equal")
+    @DisplayName("Test of the overridden hashCode() method where SubInstructions are not equal")
     class ValidHashCodeNotEqualTests {
 
       @Test
@@ -825,9 +825,9 @@ class AddInstructionTest {
       void validHashCodeNotEquals() {
         registers.set(EAX, 1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EAX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EBX, EAX);
+        Instruction instruction = new SubInstruction(null, EAX, EAX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EBX, EAX);
         // Symmetry
         Assertions.assertNotEquals(instruction, instructionTwo);
         Assertions.assertNotEquals(instructionTwo, instruction);
@@ -856,9 +856,9 @@ class AddInstructionTest {
       void validHashCodeNotEqualsTwo() {
         registers.set(EAX, -1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EAX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EBX, EAX);
+        Instruction instruction = new SubInstruction(null, EAX, EAX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EBX, EAX);
         // Symmetry
         Assertions.assertNotEquals(instruction, instructionTwo);
         Assertions.assertNotEquals(instructionTwo, instruction);
@@ -888,9 +888,9 @@ class AddInstructionTest {
       void validHashCodeNotEqualsThree() {
         registers.set(EAX, 0);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EAX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EBX, EAX);
+        Instruction instruction = new SubInstruction(null, EAX, EAX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EBX, EAX);
         // Symmetry
         Assertions.assertNotEquals(instruction, instructionTwo);
         Assertions.assertNotEquals(instructionTwo, instruction);
@@ -919,9 +919,9 @@ class AddInstructionTest {
       void validHashCodeNotEqualsFour() {
         registers.set(EAX, -1);
         registers.set(EBX, 2);
-        Instruction instruction = new AddInstruction(null, EAX, EAX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EBX, EAX);
+        Instruction instruction = new SubInstruction(null, EAX, EAX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EBX, EAX);
         // Symmetry
         Assertions.assertNotEquals(instruction, instructionTwo);
         Assertions.assertNotEquals(instructionTwo, instruction);
@@ -950,9 +950,9 @@ class AddInstructionTest {
       void validHashCodeNotEqualsFive() {
         registers.set(EAX, 1);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EAX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EBX, EAX);
+        Instruction instruction = new SubInstruction(null, EAX, EAX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EBX, EAX);
         // Symmetry
         Assertions.assertNotEquals(instruction, instructionTwo);
         Assertions.assertNotEquals(instructionTwo, instruction);
@@ -981,9 +981,9 @@ class AddInstructionTest {
       void validHashCodeNotEqualsSix() {
         registers.set(EAX, 1);
         registers.set(EBX, 0);
-        Instruction instruction = new AddInstruction(null, EAX, EAX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EBX, EAX);
+        Instruction instruction = new SubInstruction(null, EAX, EAX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EBX, EAX);
         // Symmetry
         Assertions.assertNotEquals(instruction, instructionTwo);
         Assertions.assertNotEquals(instructionTwo, instruction);
@@ -1012,9 +1012,9 @@ class AddInstructionTest {
       void validHashCodeNotEqualsSeven() {
         registers.set(EAX, 0);
         registers.set(EBX, -2);
-        Instruction instruction = new AddInstruction(null, EAX, EAX);
-        Instruction instructionTwo = new AddInstruction(null, EAX, EBX);
-        Instruction instructionThree = new AddInstruction(null, EBX, EAX);
+        Instruction instruction = new SubInstruction(null, EAX, EAX);
+        Instruction instructionTwo = new SubInstruction(null, EAX, EBX);
+        Instruction instructionThree = new SubInstruction(null, EBX, EAX);
         // Symmetry
         Assertions.assertNotEquals(instruction, instructionTwo);
         Assertions.assertNotEquals(instructionTwo, instruction);
