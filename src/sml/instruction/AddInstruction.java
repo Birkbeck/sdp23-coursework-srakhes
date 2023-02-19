@@ -54,11 +54,11 @@ public class AddInstruction extends Instruction {
 //			return false;
 //		}
 //		AddInstruction oCast = (AddInstruction) o; // add a try catch block to catch cast error and return false.
-		if (this == o) { return true; } // TODO: this may not be necessary - reread notes and omit if not needed!
+//		if (this == o) { return true; } // TODO: this may not be necessary - reread notes and omit if not needed!
 		if (o instanceof AddInstruction that) {
 			return this.result == that.result
 					&& this.source == that.source
-					&& this.opcode == that.opcode;
+					&& Objects.equals(this.label, that.label); // null-safe equals must be used
 		}
 		return false;
 	}
