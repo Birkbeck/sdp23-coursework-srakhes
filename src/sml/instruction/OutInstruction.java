@@ -17,7 +17,6 @@ import static java.lang.Math.multiplyExact;
 
 public class OutInstruction extends Instruction {
 	private final RegisterName result;
-//	private final RegisterName source;
 
 	public static final String OP_CODE = "out";
 
@@ -50,5 +49,6 @@ public class OutInstruction extends Instruction {
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(this.result); // as this has a single constructor Objects.hashCode() used instead of Objects.hash()
+		// TODO: check if this.label could also be used to generate hashcode
 	}
 }

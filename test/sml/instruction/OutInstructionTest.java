@@ -5,65 +5,80 @@ import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static sml.Registers.Register.*;
 
 /**
  * @author Birkbeck College, and Samuel Rakhes
  */
-class MovInstructionTest {
+class OutInstructionTest {
   private Machine machine;
   private Registers registers;
+
+  private final PrintStream standardOut = System.out;
+  private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
   @BeforeEach
   void setUp() {
     machine = new Machine(new Registers());
     registers = machine.getRegisters();
-    //...
+    System.setOut(new PrintStream(outputStreamCaptor));
+//    Used to test output to console as per below:
+//    https://www.baeldung.com/java-testing-system-out-println
   }
   @AfterEach
   void tearDown() {
     machine = null;
     registers = null;
+    System.setOut(standardOut);
   }
 
   @Nested
-  @DisplayName("Test of Valid inputs to the Class MovInstruction and execution of execute() method")
+  @DisplayName("Test of Valid inputs to the Class OutInstruction and execution of execute() method")
   class ValidAdditionTests {
 
     @Test
 //    @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
     @DisplayName("Test 1 - A positive integer stored in register EAX")
     void validAdditionTest() {
-      Instruction instruction = new MovInstruction(null, EAX, 5);
+      registers.set(EAX, 5);
+      Instruction instruction = new OutInstruction(null, EAX);
       instruction.execute(machine);
-      Assertions.assertEquals(5, machine.getRegisters().get(EAX));
+      Assertions.assertEquals("Contents of register EAX: 5", outputStreamCaptor.toString()
+              .trim());
     }
 
     @Test
 //    @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
     @DisplayName("Test 2 - A negative integer stored in register EAX")
     void validAdditionTestTwo() {
-      Instruction instruction = new MovInstruction(null, EAX, -5);
+      registers.set(EAX, -5);
+      Instruction instruction = new OutInstruction(null, EAX);
       instruction.execute(machine);
-      Assertions.assertEquals(-5, machine.getRegisters().get(EAX));
+      Assertions.assertEquals("Contents of register EAX: -5", outputStreamCaptor.toString()
+              .trim());
     }
 
     @Test
 //    @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
     @DisplayName("Test 3 - A zero integer stored in register EAX")
     void validAdditionTestThree() {
-      Instruction instruction = new MovInstruction(null, EAX, 0);
+      registers.set(EAX, 0);
+      Instruction instruction = new OutInstruction(null, EAX);
       instruction.execute(machine);
-      Assertions.assertEquals(0, machine.getRegisters().get(EAX));
+      Assertions.assertEquals("Contents of register EAX: 0", outputStreamCaptor.toString()
+              .trim());
     }
   }
 
   @Nested
-  @DisplayName("Test of Valid equal inputs to the Class MovInstruction and execution of overridden equals() method")
+  @DisplayName("Test of Valid equal inputs to the Class OutInstruction and execution of overridden equals() method")
   class ValidEqualsTests {
 
     @Nested
-    @DisplayName("Test of Reflexivity (Against the same instances of MovInstruction) for the overridden equals() method")
+    @DisplayName("Test of Reflexivity (Against the same instances of OutInstruction) for the overridden equals() method")
     class ValidReflexivityTests {
 
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
@@ -71,7 +86,8 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Reflexivity 1 - A positive integer stored in register EAX")
       void validReflexiveEquals() {
-        Instruction instruction = new MovInstruction(null, EAX, 5);
+        registers.set(EAX, 5);
+        Instruction instruction = new OutInstruction(null, EAX);
         Assertions.assertEquals(instruction, instruction);
       }
 
@@ -79,7 +95,8 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Reflexivity 2 - A negative integer stored in register EAX")
       void validReflexiveEqualsTwo() {
-        Instruction instruction = new MovInstruction(null, EAX, -2);
+        registers.set(EAX, -2);
+        Instruction instruction = new OutInstruction(null, EAX);
         Assertions.assertEquals(instruction, instruction);
       }
 
@@ -87,20 +104,22 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Reflexivity 3 - A zero integer stored in registers EAX")
       void validReflexiveEqualsThree() {
-        Instruction instruction = new MovInstruction(null, EAX, 0);
+        registers.set(EAX, 0);
+        Instruction instruction = new OutInstruction(null, EAX);
         Assertions.assertEquals(instruction, instruction);
       }
     }
 
     @Nested
-    @DisplayName("Test of Symmetry (Against two separate but identical instances of MovInstruction) for the overridden equals() method")
+    @DisplayName("Test of Symmetry (Against two separate but identical instances of OutInstruction) for the overridden equals() method")
     class ValidSymmetryTests {
       @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Symmetry 1 - A positive integer stored in register EAX")
       void validSymmetricEquals() {
-        Instruction instruction = new MovInstruction(null, EAX, 5);
-        Instruction instructionTwo = new MovInstruction(null, EAX, 5);
+        registers.set(EAX, 5);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EAX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instruction);
       }
@@ -109,8 +128,9 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Symmetry 2 - A negative integer stored in register EAX")
       void validSymmetricEqualsTwo() {
-        Instruction instruction = new MovInstruction(null, EAX, -10);
-        Instruction instructionTwo = new MovInstruction(null, EAX, -10);
+        registers.set(EAX, -10);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EAX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instruction);
       }
@@ -119,23 +139,25 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Symmetry 3 - A zero integer stored in register EAX")
       void validSymmetricEqualsThree() {
-        Instruction instruction = new MovInstruction(null, EAX, 0);
-        Instruction instructionTwo = new MovInstruction(null, EAX, 0);
+        registers.set(EAX, 0);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EAX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instruction);
       }
     }
 
     @Nested
-    @DisplayName("Test of Transitivity (Against three separate but identical instances of MovInstruction) for the overridden equals() method")
+    @DisplayName("Test of Transitivity (Against three separate but identical instances of OutInstruction) for the overridden equals() method")
     class ValidTransitivityTests {
       @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Transitivity 1 - A positive integer stored in register EAX")
       void validTransitiveEquals() {
-        Instruction instruction = new MovInstruction(null, EAX, 9);
-        Instruction instructionTwo = new MovInstruction(null, EAX, 9);
-        Instruction instructionThree = new MovInstruction(null, EAX, 9);
+        registers.set(EAX, 9);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EAX);
+        Instruction instructionThree = new OutInstruction(null, EAX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instructionThree);
         Assertions.assertEquals(instruction, instructionThree);
@@ -145,9 +167,10 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Transitivity 2 - A negative integer stored in register EAX")
       void validTransitiveEqualsTwo() {
-        Instruction instruction = new MovInstruction(null, EAX, -51);
-        Instruction instructionTwo = new MovInstruction(null, EAX, -51);
-        Instruction instructionThree = new MovInstruction(null, EAX, -51);
+        registers.set(EAX, -52);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EAX);
+        Instruction instructionThree = new OutInstruction(null, EAX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instructionThree);
         Assertions.assertEquals(instruction, instructionThree);
@@ -157,9 +180,10 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Transitivity 3 - A zero integer stored in register EAX")
       void validTransitiveEqualsThree() {
-        Instruction instruction = new MovInstruction(null, EAX, 0);
-        Instruction instructionTwo = new MovInstruction(null, EAX, 0);
-        Instruction instructionThree = new MovInstruction(null, EAX, 0);
+        registers.set(EAX, 0);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EAX);
+        Instruction instructionThree = new OutInstruction(null, EAX);
         Assertions.assertEquals(instruction, instructionTwo);
         Assertions.assertEquals(instructionTwo, instructionThree);
         Assertions.assertEquals(instruction, instructionThree);
@@ -167,13 +191,14 @@ class MovInstructionTest {
     }
 
     @Nested
-    @DisplayName("Test that MovInstruction not equal to null for the overridden equals() method")
+    @DisplayName("Test that OutInstruction not equal to null for the overridden equals() method")
     class ValidNonNullTests {
       @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Non-Null 1 - A positive integer stored in register EAX")
       void validNonNullEquals() {
-        Instruction instruction = new MovInstruction(null, EAX, 124);
+        registers.set(EAX, 124);
+        Instruction instruction = new OutInstruction(null, EAX);
         Assertions.assertNotEquals(instruction, null);
       }
 
@@ -181,7 +206,8 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Non-Null 2 - A negative integer stored in register EAX")
       void validNonNullEqualsTwo() {
-        Instruction instruction = new MovInstruction(null, EAX, -1485);
+        registers.set(EAX, -1854);
+        Instruction instruction = new OutInstruction(null, EAX);
         Assertions.assertNotEquals(instruction, null);
       }
 
@@ -189,21 +215,24 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Non-Null 3 - A zero integer stored in register EAX")
       void validNonNullEqualsThree() {
-        Instruction instruction = new MovInstruction(null, EAX, 0);
+        registers.set(EAX, 0);
+        Instruction instruction = new OutInstruction(null, EAX);
         Assertions.assertNotEquals(instruction, null);
       }
     }
   }
 
   @Nested
-  @DisplayName("Test of Valid Unequal inputs to the Class MovInstruction and execution of overridden equals() method")
+  @DisplayName("Test of Valid Unequal inputs to the Class OutInstruction and execution of overridden equals() method")
   class ValidNonEqualsTests {
     @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
     @DisplayName("Test Unequal 1 - A positive integer stored in registers EAX and EBX")
     void validSymmetricUnequal() {
-      Instruction instruction = new MovInstruction(null, EAX, 145);
-      Instruction instructionTwo = new MovInstruction(null, EBX, 9854);
+      registers.set(EAX, 956);
+      registers.set(EBX, 145);
+      Instruction instruction = new OutInstruction(null, EAX);
+      Instruction instructionTwo = new OutInstruction(null, EBX);
       Assertions.assertNotEquals(instruction, instructionTwo);
       Assertions.assertNotEquals(instructionTwo, instruction);
     }
@@ -212,8 +241,10 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
     @DisplayName("Test Unequal 2 - A negative integer stored in registers EAX and EBX")
     void validSymmetricEqualsTwo() {
-      Instruction instruction = new MovInstruction(null, EAX, -1485);
-      Instruction instructionTwo = new MovInstruction(null, EBX, -14586);
+      registers.set(EAX, -56956);
+      registers.set(EBX, -758145);
+      Instruction instruction = new OutInstruction(null, EAX);
+      Instruction instructionTwo = new OutInstruction(null, EBX);
       Assertions.assertNotEquals(instruction, instructionTwo);
       Assertions.assertNotEquals(instructionTwo, instruction);
     }
@@ -222,26 +253,29 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
     @DisplayName("Test Unequal 3 - A zero integer stored in registers EAX and EBX")
     void validSymmetricEqualsThree() {
-      Instruction instruction = new MovInstruction(null, EAX, 0);
-      Instruction instructionTwo = new MovInstruction(null, EBX, 0);
+      registers.set(EAX, 0);
+      registers.set(EBX, 0);
+      Instruction instruction = new OutInstruction(null, EAX);
+      Instruction instructionTwo = new OutInstruction(null, EBX);
       Assertions.assertNotEquals(instruction, instructionTwo);
       Assertions.assertNotEquals(instructionTwo, instruction);
     }
   }
   @Nested
-  @DisplayName("Test of Reflexivity, Symmetry and Transitivity (Against three separate but identical instances of MovInstruction) for the overridden hashCode() method")
+  @DisplayName("Test of Reflexivity, Symmetry and Transitivity (Against three separate but identical instances of OutInstruction) for the overridden hashCode() method")
   class ValidHashCodeTests {
 
     @Nested
-    @DisplayName("Test of the overridden hashCode() method where MovInstructions are equal")
+    @DisplayName("Test of the overridden hashCode() method where OutInstructions are equal")
     class ValidHashCodeEqualTests {
       @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Equal HashCode 1 - A positive integer stored in register EAX")
       void validHashCodeEquals() {
-        Instruction instruction = new MovInstruction(null, EAX, 8546);
-        Instruction instructionTwo = new MovInstruction(null, EAX, 8546);
-        Instruction instructionThree = new MovInstruction(null, EAX, 8546);
+        registers.set(EAX, 956841);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EAX);
+        Instruction instructionThree = new OutInstruction(null, EAX);
         // Reflexivity
         Assertions.assertEquals(instruction, instruction);
         Assertions.assertEquals(instructionTwo, instructionTwo);
@@ -275,9 +309,10 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Equal HashCode 2 - A negative integer stored in register EAX")
       void validHashCodeEqualsTwo() {
-        Instruction instruction = new MovInstruction(null, EAX, -145875);
-        Instruction instructionTwo = new MovInstruction(null, EAX, -145875);
-        Instruction instructionThree = new MovInstruction(null, EAX, -145875);
+        registers.set(EAX, -56956841);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EAX);
+        Instruction instructionThree = new OutInstruction(null, EAX);
         // Reflexivity
         Assertions.assertEquals(instruction, instruction);
         Assertions.assertEquals(instructionTwo, instructionTwo);
@@ -311,9 +346,10 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Equal HashCode 3 - A zero integer stored in register EAX")
       void validHashCodeEqualsThree() {
-        Instruction instruction = new MovInstruction(null, EAX, 0);
-        Instruction instructionTwo = new MovInstruction(null, EAX, 0);
-        Instruction instructionThree = new MovInstruction(null, EAX, 0);
+        registers.set(EAX, 0);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EAX);
+        Instruction instructionThree = new OutInstruction(null, EAX);
         // Reflexivity
         Assertions.assertEquals(instruction, instruction);
         Assertions.assertEquals(instructionTwo, instructionTwo);
@@ -345,16 +381,19 @@ class MovInstructionTest {
     }
 
     @Nested
-    @DisplayName("Test of the overridden hashCode() method where MovInstructions are not equal")
+    @DisplayName("Test of the overridden hashCode() method where OutInstructions are not equal")
     class ValidHashCodeNotEqualTests {
 
       @Test
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Not Equal HashCode 1 - A positive integer stored in registers EAX, EBX and ECX")
       void validHashCodeNotEquals() {
-        Instruction instruction = new MovInstruction(null, EAX, 145);
-        Instruction instructionTwo = new MovInstruction(null, EBX, 8546);
-        Instruction instructionThree = new MovInstruction(null, ECX, 84567);
+        registers.set(EAX, 956841);
+        registers.set(EBX, 1456);
+        registers.set(ECX, 23);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EBX);
+        Instruction instructionThree = new OutInstruction(null, ECX);
         // Symmetry
         Assertions.assertNotEquals(instruction, instructionTwo);
         Assertions.assertNotEquals(instructionTwo, instruction);
@@ -381,9 +420,12 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Not Equal HashCode 2 - A negative integer stored in registers EAX, EBX and ECX")
       void validHashCodeNotEqualsTwo() {
-        Instruction instruction = new MovInstruction(null, EAX, -14568);
-        Instruction instructionTwo = new MovInstruction(null, EBX, -8546);
-        Instruction instructionThree = new MovInstruction(null, ECX, -9154);
+        registers.set(EAX, -9561841);
+        registers.set(EBX, -14516);
+        registers.set(ECX, -213);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EBX);
+        Instruction instructionThree = new OutInstruction(null, ECX);
         // Symmetry
         Assertions.assertNotEquals(instruction, instructionTwo);
         Assertions.assertNotEquals(instructionTwo, instruction);
@@ -410,9 +452,12 @@ class MovInstructionTest {
 //      @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
       @DisplayName("Test Not Equal HashCode 3 - Two zero integer stored in registers EAX, EBX and ECX")
       void validHashCodeNotEqualsThree() {
-        Instruction instruction = new MovInstruction(null, EAX, 0);
-        Instruction instructionTwo = new MovInstruction(null, EBX, 0);
-        Instruction instructionThree = new MovInstruction(null, ECX, 0);
+        registers.set(EAX, 0);
+        registers.set(EBX, 0);
+        registers.set(ECX, 0);
+        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instructionTwo = new OutInstruction(null, EBX);
+        Instruction instructionThree = new OutInstruction(null, ECX);
         // Symmetry
         Assertions.assertNotEquals(instruction, instructionTwo);
         Assertions.assertNotEquals(instructionTwo, instruction);

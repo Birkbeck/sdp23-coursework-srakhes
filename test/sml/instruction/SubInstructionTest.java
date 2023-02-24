@@ -5,8 +5,7 @@ import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
 
-import static sml.Registers.Register.EAX;
-import static sml.Registers.Register.EBX;
+import static sml.Registers.Register.*;
 
 /**
  * @author Birkbeck College, and Samuel Rakhes
