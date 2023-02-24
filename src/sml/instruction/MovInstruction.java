@@ -19,7 +19,7 @@ public class MovInstruction extends Instruction {
 
 	public static final String OP_CODE = "mov";
 
-	public MovInstruction(String label, RegisterName result, int source) { //TODO:Test to see if runtime error is generator if an int larger than int type can hold.
+	public MovInstruction(String label, RegisterName result, int source) { //TODO: Test to see if runtime error is generator if an int larger than int type can hold.
 		super(label, OP_CODE);
 		this.result = result;
 		this.source = source;
@@ -27,12 +27,7 @@ public class MovInstruction extends Instruction {
 
 	@Override
 	public int execute(Machine m) {
-//		int value1 = m.getRegisters().get(result);
-//		int value2 = m.getRegisters().get(source);
-//		m.getRegisters().set(result, value1 * value2);
 		m.getRegisters().set(result, source);
-		// Will throw and ArithmeticException if over/underflow occur
-		// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/Math.html#multiplyExact(int,int)
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 
