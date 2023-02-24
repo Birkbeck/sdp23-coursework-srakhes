@@ -17,6 +17,8 @@
 
 TODO: Add a test/check for minus zero -0
 
+TODO: Check if hashCode override should include label for the instructions.
+
 TODO: Go through and check private, final, protected, etc. are relevant and only accessible where necessary!
 
 ## Try to break the translator using sml input files and adapt program to catch errors before introducing any new Instructions!!!
