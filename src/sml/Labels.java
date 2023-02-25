@@ -2,7 +2,6 @@ package sml;
 
 import sml.customExceptions.InvalidLabelSMLInputException;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -33,13 +32,22 @@ public final class Labels {
 //			label = null; // TODO: for testing purposes - remove after testing
 			Objects.requireNonNull(label);
 			if (labels.containsKey(label)) {
-				throw new InvalidLabelSMLInputException("Duplicate labels are not allowed in your SML input file: '" + label + "' has been used as a label two (or more) times.");
+				throw new InvalidLabelSMLInputException();
 			}
 			labels.put(label, address);
 		} catch (NullPointerException e) {
-			throw new InvalidLabelSMLInputException("Labels with a value of 'null' are not allowed in your SML input file.");
+			Main.gracefulExitWithException("Labels with a value of 'null' are not allowed within your SML input file.");
+//			System.err.println("Labels with a value of 'null' are not allowed within your SML input file.");
+//			System.err.println("Program did not complete successfully.\nEnding program execution.");
+//			System.exit(-1);
+//			throw new InvalidLabelSMLInputException("Labels with a value of 'null' are not allowed in your SML input file.");
 		} catch (InvalidLabelSMLInputException e) {
-			throw e;
+			Main.gracefulExitWithException("Duplicate labels are not allowed within your SML input file: '" + label + "' has been used as a label two (or more) times.");
+////			System.err.println(e.getMessage());
+//			System.err.println("Duplicate labels are not allowed within your SML input file: '" + label + "' has been used as a label two (or more) times.");
+//			System.err.println("Program did not complete successfully.\nEnding program execution.");
+//			System.exit(-1);
+//			throw e;
 		}
 	}
 
@@ -54,12 +62,18 @@ public final class Labels {
 		try {
 			return labels.get(label);
 		} catch (NullPointerException e) {
-			throw e; // TODO: Create custom exception with explanation of which label cannot be found!
+			Main.gracefulExitWithException("Label '" + label + "' has been used in a 'jnz' instruction but is not found within your SML input file.");
+//			System.err.println("Label '" + label + "' has been used in a 'jnz' instruction but is not found within your SML input file.");
+//			System.err.println("Program did not complete successfully.\nEnding program execution.");
+//			System.exit(-1);
+//			throw new InvalidSMLInputException("Label '" + label + "' not found within your SML file.");
+//			throw e; // TODO: Create custom exception with explanation of which label cannot be found! Potentially throw error here
 		}
 		// TODO: Where can NullPointerException be thrown here?
 		//       (Write an explanation.)
 		//       Add code to deal with non-existent labels.
 		// return labels.get(label);
+		return labels.get(label);
 	}
 
 	/**

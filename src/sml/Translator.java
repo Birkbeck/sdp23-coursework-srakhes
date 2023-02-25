@@ -33,7 +33,7 @@ public final class Translator {
     // prog (the program)
     // return "no errors were detected"
 
-    public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException, InvalidLabelSMLInputException {
+    public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException {
         try (var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
             labels.reset();
             program.clear();
@@ -51,7 +51,7 @@ public final class Translator {
                 }
             }
         } catch (InvalidLabelSMLInputException e) {
-            throw e;
+//            throw e;
         }
     }
 
@@ -114,6 +114,8 @@ public final class Translator {
 
             default -> {
                 System.out.println("Unknown instruction: " + opcode);
+                // TODO: Possibly terminate program upon unknown instruction
+//                Main.gracefulExitWithException("Unknown instruction: " + opcode);
             }
         }
         return null;

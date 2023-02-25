@@ -32,7 +32,7 @@ public class MulInstruction extends Instruction {
 		int value1 = m.getRegisters().get(result);
 		int value2 = m.getRegisters().get(source);
 //		m.getRegisters().set(result, value1 * value2);
-		m.getRegisters().set(result, multiplyExact(value1, value2));
+		m.getRegisters().set(result, multiplyExact(value1, value2)); //TODO: catch arithmetic exception and gracefully exit
 		// Will throw and ArithmeticException if over/underflow occur
 		// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/Math.html#multiplyExact(int,int)
 		return NORMAL_PROGRAM_COUNTER_UPDATE;

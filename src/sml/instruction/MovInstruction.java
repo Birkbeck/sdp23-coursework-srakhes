@@ -27,7 +27,7 @@ public class MovInstruction extends Instruction {
 
 	@Override
 	public int execute(Machine m) {
-		m.getRegisters().set(result, source);
+		m.getRegisters().set(result, source); // TODO: Check if the translator will catch integer overflow - if not then check needs to be created here
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 
