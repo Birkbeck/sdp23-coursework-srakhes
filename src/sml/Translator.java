@@ -98,13 +98,13 @@ public final class Translator {
             case MovInstruction.OP_CODE -> {
                 String r = scan();
                 String s = scan();
-                return new MovInstruction(label, Register.valueOf(r), Integer.valueOf(s));
+                return new MovInstruction(label, Register.valueOf(r), Integer.valueOf(s)); //TODO: Check the type here are int is used in AddInstruction
             }
-//            case JnzInstruction.OP_CODE -> {
-//                String r = scan();
-//                String s = scan();
-//                return new JnzInstruction(label, Register.valueOf(r), Register.valueOf(s));
-//            }
+            case JnzInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new JnzInstruction(label, Register.valueOf(r), String.valueOf(s));
+            }
             // TODO: add code for all other types of instructions
 
             // TODO: Then, replace the switch by using the Reflection API

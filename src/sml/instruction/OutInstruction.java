@@ -6,8 +6,6 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
-import static java.lang.Math.multiplyExact;
-
 // TODO: write a JavaDoc for the class
 
 /**
