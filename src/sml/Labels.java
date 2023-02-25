@@ -63,16 +63,10 @@ public final class Labels {
 			return labels.get(label);
 		} catch (NullPointerException e) {
 			Main.gracefulExitWithException("Label '" + label + "' has been used in a 'jnz' instruction but is not found within your SML input file.");
-//			System.err.println("Label '" + label + "' has been used in a 'jnz' instruction but is not found within your SML input file.");
-//			System.err.println("Program did not complete successfully.\nEnding program execution.");
-//			System.exit(-1);
-//			throw new InvalidSMLInputException("Label '" + label + "' not found within your SML file.");
-//			throw e; // TODO: Create custom exception with explanation of which label cannot be found! Potentially throw error here
 		}
 		// TODO: Where can NullPointerException be thrown here?
 		//       (Write an explanation.)
 		//       Add code to deal with non-existent labels.
-		// return labels.get(label);
 		return labels.get(label);
 	}
 

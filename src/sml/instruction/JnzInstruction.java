@@ -22,7 +22,6 @@ public class JnzInstruction extends Instruction {
 	public JnzInstruction(String label, RegisterName result, String labelNext) {
 		super(label, OP_CODE);
 		this.result = result;
-//		this.source = source;
 		this.labelNext = labelNext;
 	}
 
@@ -33,21 +32,12 @@ public class JnzInstruction extends Instruction {
 		// TODO: Find labelNext in the Labels HashMap and retrieve its 'address'
 		// TODO: Use this address to update program counter
 		// TODO: otherwise return normal program counter update
-//		try {
 		int value1 = m.getRegisters().get(result);
 		if (value1 != 0) {
-//			int address = m.getLabels().getAddress(label);
-//			System.out.println(address);
-			int addressNext = m.getLabels().getAddress(labelNext); //TODO: label not found error caught in getAddress() method
+			int addressNext = m.getLabels().getAddress(labelNext); // TODO: label not found error caught in getAddress() method
 			System.out.println(addressNext);
 			return addressNext;
 		}
-//		} catch (InvalidSMLInputException e) {
-//			System.err.println(e.getMessage());
-//			System.exit(-1);
-////			throw e;
-//		}
-
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 

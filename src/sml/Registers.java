@@ -51,11 +51,6 @@ public final class Registers {
     // https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
     @Override
     public boolean equals(Object o) {
-//        if (o instanceof Registers) {
-//            Registers other = (Registers) o;
-//            return registers.equals(other.registers);
-//        }
-//        return false;
         if (o instanceof Registers that) {
             return this.registers == that.registers;
         }

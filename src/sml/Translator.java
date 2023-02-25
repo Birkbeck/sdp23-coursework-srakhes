@@ -50,9 +50,7 @@ public final class Translator {
                     program.add(instruction);
                 }
             }
-        } //catch (InvalidLabelSMLInputException e) {
-//            throw e;
-//        }
+        }
     }
 
     /**
@@ -105,7 +103,7 @@ public final class Translator {
                 String s = scan();
                 return new JnzInstruction(label, Register.valueOf(r), String.valueOf(s));
             }
-            // TODO: add code for all other types of instructions
+            // TODO: add code for all other types of instructions - * DONE *
 
             // TODO: Then, replace the switch by using the Reflection API
 

@@ -18,7 +18,6 @@ import static java.lang.Math.addExact;
  *
  * @author Birkbeck College, and Samuel Rakhes
  */
-
 public class AddInstruction extends Instruction {
 	private final RegisterName result;
 	private final RegisterName source;
@@ -36,8 +35,7 @@ public class AddInstruction extends Instruction {
 		try{
 			int value1 = m.getRegisters().get(result);
 			int value2 = m.getRegisters().get(source);
-//		m.getRegisters().set(result, value1 + value2);
-			m.getRegisters().set(result, addExact(value1, value2)); //TODO: DONE catch arithmetic exception and gracefully exit
+			m.getRegisters().set(result, addExact(value1, value2));
 			// Will throw and ArithmeticException if over/underflow occur
 			// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/Math.html#addExact(int,int)
 		} catch (ArithmeticException e) {
@@ -54,17 +52,6 @@ public class AddInstruction extends Instruction {
 	//	TODO: Override equals
 	@Override
 	public boolean equals(Object o) {
-//		if (o == this) {
-//			return true;
-//		}
-//		if (!(o instanceof AddInstruction)) {
-//			return false;
-//		}
-//		if (o == null) {
-//			return false;
-//		}
-//		AddInstruction oCast = (AddInstruction) o; // add a try catch block to catch cast error and return false.
-//		if (this == o) { return true; } // TODO: this may not be necessary - reread notes and omit if not needed!
 		if (o instanceof AddInstruction that) {
 			return this.result == that.result
 					&& this.source == that.source

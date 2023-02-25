@@ -2,6 +2,7 @@ package sml.instruction;
 
 import sml.Instruction;
 import sml.Machine;
+import sml.Main;
 import sml.RegisterName;
 
 import java.util.Objects;
@@ -29,15 +30,15 @@ public class DivInstruction extends Instruction {
 
 	@Override
 	public int execute(Machine m) {
-		int value1 = m.getRegisters().get(result);
-		int value2 = m.getRegisters().get(source);
-//		m.getRegisters().set(result, value1 / value2);
-//		System.out.println("Before: " + value1/value2);
-//		System.out.println("Before: " + divideExact(value1, value2));
-		System.out.println((value1/value2) == divideExact(value1, value2)); //TODO: catch arithmetic exception and gracefully exit
-		m.getRegisters().set(result, divideExact(value1, value2));
-		// Will throw and ArithmeticException if over/underflow occur
-		// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/Math.html#divideExact(int,int)
+		try {
+			int value1 = m.getRegisters().get(result);
+			int value2 = m.getRegisters().get(source);
+			m.getRegisters().set(result, divideExact(value1, value2));
+			// Will throw and ArithmeticException if over/underflow occur
+			// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/Math.html#divideExact(int,int)
+		} catch (ArithmeticException e) {
+			Main.gracefulExitWithException("The product of instruction '" + this + "' results in integer over/underflow.");
+		}
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 

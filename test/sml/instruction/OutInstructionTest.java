@@ -46,7 +46,7 @@ class OutInstructionTest {
       registers.set(EAX, 5);
       Instruction instruction = new OutInstruction(null, EAX);
       instruction.execute(machine);
-      Assertions.assertEquals("Contents of register EAX: 5", outputStreamCaptor.toString()
+      Assertions.assertEquals("Contents of register 'EAX': 5", outputStreamCaptor.toString()
               .trim());
     }
 
@@ -57,7 +57,7 @@ class OutInstructionTest {
       registers.set(EAX, -5);
       Instruction instruction = new OutInstruction(null, EAX);
       instruction.execute(machine);
-      Assertions.assertEquals("Contents of register EAX: -5", outputStreamCaptor.toString()
+      Assertions.assertEquals("Contents of register 'EAX': -5", outputStreamCaptor.toString()
               .trim());
     }
 
@@ -68,7 +68,7 @@ class OutInstructionTest {
       registers.set(EAX, 0);
       Instruction instruction = new OutInstruction(null, EAX);
       instruction.execute(machine);
-      Assertions.assertEquals("Contents of register EAX: 0", outputStreamCaptor.toString()
+      Assertions.assertEquals("Contents of register 'EAX': 0", outputStreamCaptor.toString()
               .trim());
     }
   }

@@ -13,20 +13,12 @@ public class Main {
 	public static void main(String... args) {
 		if (args.length != 1) {
 			gracefulExitWithException("Incorrect number of arguments - Machine <file> - required");
-//			System.err.println("Incorrect number of arguments - Machine <file> - required");
-//			System.exit(-1);
 		}
 
 		try {
 			Translator t = new Translator(args[0]);
 			Machine m = new Machine(new Registers());
 			t.readAndTranslate(m.getLabels(), m.getProgram());
-
-//			TODO: Remove these after testing
-//			int maxIntAdd = Integer.MAX_VALUE;
-//			int maxIntSub = Integer.MIN_VALUE;
-//			System.out.println(Math.addExact(maxIntAdd , 1));
-//			System.out.println(Math.subtractExact(maxIntSub , 1));
 
 			System.out.println("Here is the program; it has " + m.getProgram().size() + " instructions.");
 			System.out.println(m);
@@ -45,7 +37,6 @@ public class Main {
 	}
 	public static void gracefulExitWithException(String message) {
 		System.err.println(message + "\nProgram did not complete successfully.\nEnding program execution.");
-//		System.err.println();
 		System.exit(-1);
 	}
 }

@@ -26,7 +26,7 @@ public class OutInstruction extends Instruction {
 	@Override
 	public int execute(Machine m) {
 		int returnValue = m.getRegisters().get(result);
-		System.out.println("Contents of register " + result + ": " + returnValue);
+		System.out.println("Contents of register '" + result + "': " + returnValue);
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 
