@@ -22,7 +22,7 @@ public final class Labels {
 	 * @param label the label
 	 * @param address the address the label refers to
 	 */
-	public void addLabel(String label, int address) throws InvalidLabelSMLInputException {
+	public void addLabel(String label, int address) {
 //		TODO: this needs to be changed to throw error back to main where program can gracefully exit
 //		TODO: add a try catch to catch null pointer exception if the label is null
 // 		TODO: Add a check that there are no label duplicates.

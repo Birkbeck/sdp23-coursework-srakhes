@@ -3,9 +3,7 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
-import sml.customExceptions.InvalidSMLInputException;
 
-import java.sql.SQLOutput;
 import java.util.Objects;
 
 // TODO: write a JavaDoc for the class

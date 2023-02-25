@@ -50,9 +50,9 @@ public final class Translator {
                     program.add(instruction);
                 }
             }
-        } catch (InvalidLabelSMLInputException e) {
+        } //catch (InvalidLabelSMLInputException e) {
 //            throw e;
-        }
+//        }
     }
 
     /**
