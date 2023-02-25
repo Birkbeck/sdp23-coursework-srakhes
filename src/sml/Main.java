@@ -44,8 +44,8 @@ public class Main {
 //		}
 	}
 	public static void gracefulExitWithException(String message) {
-		System.err.println(message);
-		System.err.println("Program did not complete successfully.\nEnding program execution.");
+		System.err.println(message + "\nProgram did not complete successfully.\nEnding program execution.");
+//		System.err.println();
 		System.exit(-1);
 	}
 }

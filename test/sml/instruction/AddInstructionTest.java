@@ -6,6 +6,9 @@ import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static sml.Registers.Register.*;
 
 /**
@@ -15,16 +18,22 @@ class AddInstructionTest {
   private Machine machine;
   private Registers registers;
 
+  private final PrintStream standardOut = System.err;
+//
+  private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
   @BeforeEach
   void setUp() {
     machine = new Machine(new Registers());
     registers = machine.getRegisters();
-    //...
+    System.setErr(new PrintStream(outputStreamCaptor));
   }
   @AfterEach
   void tearDown() {
     machine = null;
     registers = null;
+    System.err.flush();
+    System.setErr(standardOut);
   }
 
   @Nested
@@ -107,6 +116,19 @@ class AddInstructionTest {
       instruction.execute(machine);
       Assertions.assertEquals(-6, machine.getRegisters().get(EAX));
     }
+
+//    @Test
+////    @RepeatedTest(100) // Repeat the test multiple times to test for consistency - comment out @Test if using
+//    @DisplayName("Test 8 - Two positive integers stored in registers EAX and EBX")
+//    void validAdditionTestEight() {
+//      registers.set(EAX, 1);
+//      registers.set(EBX, 2147483647);
+//      Instruction instruction = new AddInstruction(null, EAX, EBX);
+//      instruction.execute(machine);
+////      Assertions.assertThrows(ArithmeticException.class, () -> instruction.execute(machine));
+//      System.out.println(outputStreamCaptor.toString());
+//      Assertions.assertEquals("The product of instruction 'add EAX EBX' results in integer over/underflow.", outputStreamCaptor.toString());
+//    }
   }
 
   @Nested
