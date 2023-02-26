@@ -29,7 +29,6 @@ public final class Labels {
 //		TODO: use containsKey here within hashmap.
 //		TODO: add a catch here to catch an exception raised if there are duplicate labels.
 		try {
-//			label = null; // TODO: for testing purposes - remove after testing
 			Objects.requireNonNull(label);
 			if (labels.containsKey(label)) {
 				throw new InvalidLabelSMLInputException();
@@ -37,17 +36,8 @@ public final class Labels {
 			labels.put(label, address);
 		} catch (NullPointerException e) {
 			Main.gracefulExitWithException("Labels with a value of 'null' are not allowed within your SML input file.");
-//			System.err.println("Labels with a value of 'null' are not allowed within your SML input file.");
-//			System.err.println("Program did not complete successfully.\nEnding program execution.");
-//			System.exit(-1);
-//			throw new InvalidLabelSMLInputException("Labels with a value of 'null' are not allowed in your SML input file.");
 		} catch (InvalidLabelSMLInputException e) {
 			Main.gracefulExitWithException("Duplicate labels are not allowed within your SML input file: '" + label + "' has been used as a label two (or more) times.");
-////			System.err.println(e.getMessage());
-//			System.err.println("Duplicate labels are not allowed within your SML input file: '" + label + "' has been used as a label two (or more) times.");
-//			System.err.println("Program did not complete successfully.\nEnding program execution.");
-//			System.exit(-1);
-//			throw e;
 		}
 	}
 
@@ -87,6 +77,20 @@ public final class Labels {
 	}
 
 	// TODO: Implement equals and hashCode (needed in class Machine).
+	@Override
+	public boolean equals(Object o) {
+		// https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
+		if (o instanceof Labels that) {
+			return this.labels == that.labels;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(labels);
+	}
+
 
 	/**
 	 * Removes the labels

@@ -17,7 +17,9 @@
 
 TODO: Add a test/check for minus zero -0
 
+TODO: tests for equals and hashcodes overrrides that i created
 
+TODO: tests for tostring and other methods i created
 
 TODO: Check if hashCode override should include label for the instructions.
 

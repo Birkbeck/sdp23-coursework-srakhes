@@ -37,6 +37,12 @@ public class DivInstruction extends Instruction {
 			// Will throw and ArithmeticException if over/underflow occur
 			// https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/Math.html#divideExact(int,int)
 		} catch (ArithmeticException e) {
+			if (m.getRegisters().get(source) == 0) {
+				// Uncomment for Junit Tests
+//				throw new ArithmeticException();
+				// and comment out the below.
+				Main.gracefulExitWithException("The divisor within instruction '" + this + "' must not be zero.");
+			}
 			Main.gracefulExitWithException("The product of instruction '" + this + "' results in integer over/underflow.");
 		}
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
