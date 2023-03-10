@@ -9,19 +9,30 @@ import java.util.Objects;
 
 import static java.lang.Math.divideExact;
 
-// TODO: write a JavaDoc for the class
-
 /**
+ * Takes input of two RegisterNames , one 'source' and one 'result' and will integer divide the contents of 'result' by 'source'
+ * and store the product of both in RegisterName 'result'.
+ * ('result' / 'source')
  *
  * @author Birkbeck College, and Samuel Rakhes
  */
-
 public class DivInstruction extends Instruction {
 	private final RegisterName result;
 	private final RegisterName source;
 
 	public static final String OP_CODE = "div";
 
+	/**
+	 * Takes input of two RegisterNames , one 'source' and one 'result' and will integer divide the contents of 'result' by 'source'
+	 *  * and store the product of both in RegisterName 'result'.
+	 *  * ('result' / 'source')
+	 * @param result - The RegisterName where the product (division of 'result' and 'source') of
+	 *                  DivInstruction.execute() method will be stored.
+	 * <p>
+	 * @param source - The RegisterName whose contents will be the divisor to RegisterName 'result'
+	 * <p>
+	 * @author Birkbeck College, and Samuel Rakhes
+	 */
 	public DivInstruction(String label, RegisterName result, RegisterName source) {
 		super(label, OP_CODE);
 		this.result = result;

@@ -39,7 +39,7 @@ public final class Machine {
 		programCounter = 0;
 		registers.clear();
 		while (programCounter < program.size()) {
-			System.out.println("programCounter: " + programCounter); //TODO: remove after testing
+//			System.out.println("programCounter: " + programCounter); //TODO: remove after testing
 			Instruction ins = program.get(programCounter);
 			int programCounterUpdate = ins.execute(this);
 			programCounter = (programCounterUpdate == NORMAL_PROGRAM_COUNTER_UPDATE)

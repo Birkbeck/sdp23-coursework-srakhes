@@ -7,9 +7,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-// TODO: write a JavaDoc for the class
 
 /**
+ * Takes an input of a string 'label'. Labels are used to identify instructions within the SML file.
+ * A label must be unique, no two instructions can be instantiated with the same label and the SML
+ * program complete.
  *
  * @author Birkbeck College, and Samuel Rakhes
  */
@@ -23,11 +25,6 @@ public final class Labels {
 	 * @param address the address the label refers to
 	 */
 	public void addLabel(String label, int address) {
-//		TODO: this needs to be changed to throw error back to main where program can gracefully exit
-//		TODO: add a try catch to catch null pointer exception if the label is null
-// 		TODO: Add a check that there are no label duplicates.
-//		TODO: use containsKey here within hashmap.
-//		TODO: add a catch here to catch an exception raised if there are duplicate labels.
 		try {
 			Objects.requireNonNull(label);
 			if (labels.containsKey(label)) {
@@ -76,7 +73,6 @@ public final class Labels {
 		return returnStr;
 	}
 
-	// TODO: Implement equals and hashCode (needed in class Machine).
 	@Override
 	public boolean equals(Object o) {
 		// https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html

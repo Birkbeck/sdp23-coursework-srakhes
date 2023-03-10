@@ -2,7 +2,7 @@ package sml.customExceptions;
 
 /**
  * Thrown to indicate that a method has been passed an illegal or
- * inappropriate label within SML file.
+ * inappropriate label within an SML file.
  *
  * @author Samuel Rakhes
  */

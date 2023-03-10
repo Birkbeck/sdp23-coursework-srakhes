@@ -6,13 +6,12 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
-// TODO: write a JavaDoc for the class
-
 /**
+ * Takes input of a single RegisterName and a single int, one 'source' and one 'result' and
+ * will store the value of int 'source' in RegisterName 'result'.
  *
  * @author Birkbeck College, and Samuel Rakhes
  */
-
 public class MovInstruction extends Instruction {
 	private final RegisterName result;
 	private final int source;

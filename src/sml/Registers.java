@@ -1,14 +1,12 @@
 package sml;
 
-import sml.instruction.AddInstruction;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
-// TODO: write a JavaDoc for the class
-
 /**
- *
+ * Registers represent the memory available for computation within SML.
+ * There are 8 registers available for use: EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI.
+ * Values are stored within registers as integers.
  * @author Birkbeck College, and Samuel Rakhes
  */
 public final class Registers {
@@ -47,7 +45,6 @@ public final class Registers {
         return registers.get((Register)register);
     }
 
-    // TODO: use pattern matching for instanceof
     // https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
     @Override
     public boolean equals(Object o) {

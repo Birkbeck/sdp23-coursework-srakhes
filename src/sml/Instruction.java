@@ -1,7 +1,5 @@
 package sml;
 
-// TODO: write a JavaDoc for the class
-
 /**
  * Represents an abstract instruction.
  *
@@ -54,10 +52,8 @@ public abstract class Instruction {
 	public abstract String toString();
 
 	@Override
-	public abstract boolean equals(Object o); // TODO: double check here RE abstract - I think I have misunderstood
+	public abstract boolean equals(Object o);
 
 	@Override
-	public abstract int hashCode(); // TODO: double check here RE abstract - I think I have misunderstood
-
-	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
+	public abstract int hashCode();
 }

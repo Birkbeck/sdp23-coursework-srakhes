@@ -9,12 +9,9 @@ import java.util.Objects;
 
 import static java.lang.Math.addExact;
 
-// TODO: write a JavaDoc for the class
-
 /**
- *
- *
- *
+ * Takes input of two RegisterNames , one 'source' and one 'result' and will add the contents of 'source' to 'result'
+ * and store the product of both in RegisterName 'result'.
  *
  * @author Birkbeck College, and Samuel Rakhes
  */
@@ -24,11 +21,22 @@ public class AddInstruction extends Instruction {
 
 	public static final String OP_CODE = "add";
 
+	/**
+	 * Takes input of two RegisterNames , one 'source' and one 'result' and will add the contents of source to results
+	 * and store the product of both in RegisterName 'source'
+	 * @param result - The RegisterName where the product (addition of 'result' and 'source') of
+	 *                  AddInstruction.execute() method will be stored.
+	 * <p>
+	 * @param source - The RegisterName whose contents will be added to RegisterName 'result'
+	 * <p>
+	 * @author Birkbeck College, and Samuel Rakhes
+	 */
 	public AddInstruction(String label, RegisterName result, RegisterName source) {
 		super(label, OP_CODE);
 		this.result = result;
 		this.source = source;
 	}
+
 
 	@Override
 	public int execute(Machine m) {
@@ -49,7 +57,6 @@ public class AddInstruction extends Instruction {
 		return getLabelString() + getOpcode() + " " + result + " " + source;
 	}
 
-	//	TODO: Override equals
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AddInstruction that) {
@@ -59,7 +66,6 @@ public class AddInstruction extends Instruction {
 		}
 		return false;
 	}
-	//	TODO: Override hashCode
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.result, this.source); //could also multiply result by a prime number

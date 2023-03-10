@@ -9,19 +9,28 @@ import java.util.Objects;
 
 import static java.lang.Math.subtractExact;
 
-// TODO: write a JavaDoc for the class
-
 /**
+ * Takes input of two RegisterNames , one 'source' and one 'result' and will subtract the contents of 'source' from 'result'
+ * and store the product of both in RegisterName 'result'.
  *
  * @author Birkbeck College, and Samuel Rakhes
  */
-
 public class SubInstruction extends Instruction {
 	private final RegisterName result;
 	private final RegisterName source;
 
 	public static final String OP_CODE = "sub";
 
+	/**
+	 * Takes input of two RegisterNames , one 'source' and one 'result' and will subtract the contents of 'source' from 'result'
+	 * and store the product of both in RegisterName 'result'.
+	 * @param result - The RegisterName where the product (subtraction of 'source' from 'result') of
+	 *                  SubInstruction.execute() method will be stored.
+	 * <p>
+	 * @param source - The RegisterName whose contents will be subtracted from RegisterName 'result'
+	 * <p>
+	 * @author Birkbeck College, and Samuel Rakhes
+	 */
 	public SubInstruction(String label, RegisterName result, RegisterName source) {
 		super(label, OP_CODE);
 		this.result = result;

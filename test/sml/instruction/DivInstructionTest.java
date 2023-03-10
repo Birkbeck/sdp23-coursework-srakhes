@@ -7,6 +7,8 @@ import sml.Registers;
 
 import static sml.Registers.Register.*;
 
+// NOTE: To successfully complete division tests, code must be commented/uncommented within DivInstruction
+
 /**
  * @author Birkbeck College, and Samuel Rakhes
  */

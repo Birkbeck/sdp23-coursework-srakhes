@@ -9,19 +9,28 @@ import java.util.Objects;
 
 import static java.lang.Math.multiplyExact;
 
-// TODO: write a JavaDoc for the class
-
 /**
+ * Takes input of two RegisterNames , one 'source' and one 'result' and will multiply the contents of 'source' and 'result'
+ * and store the product of both in RegisterName 'result'.
  *
  * @author Birkbeck College, and Samuel Rakhes
  */
-
 public class MulInstruction extends Instruction {
 	private final RegisterName result;
 	private final RegisterName source;
 
 	public static final String OP_CODE = "mul";
 
+	/**
+	 * Takes input of two RegisterNames , one 'source' and one 'result' and will multiply the contents of source by results
+	 * and store the product of both in RegisterName 'source'
+	 * @param result - The RegisterName where the product (multiplication of 'result' and 'source') of
+	 *                  MulInstruction.execute() method will be stored.
+	 * <p>
+	 * @param source - The RegisterName whose contents will be multiplied by RegisterName 'result'
+	 * <p>
+	 * @author Birkbeck College, and Samuel Rakhes
+	 */
 	public MulInstruction(String label, RegisterName result, RegisterName source) {
 		super(label, OP_CODE);
 		this.result = result;

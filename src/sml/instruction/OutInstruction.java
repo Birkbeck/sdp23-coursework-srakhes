@@ -6,18 +6,22 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
-// TODO: write a JavaDoc for the class
-
 /**
+ * Takes input of one RegisterName and will output the product of the register to console (System.out).
  *
  * @author Birkbeck College, and Samuel Rakhes
  */
-
 public class OutInstruction extends Instruction {
 	private final RegisterName result;
 
 	public static final String OP_CODE = "out";
 
+	/**
+	 * Takes input of one RegisterName and will output the product of the register to console (System.out).
+	 * @param result - The RegisterName whose contents will be output to console (System.out).
+	 * <p>
+	 * @author Birkbeck College, and Samuel Rakhes
+	 */
 	public OutInstruction(String label, RegisterName result) {
 		super(label, OP_CODE);
 		this.result = result;

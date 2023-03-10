@@ -68,133 +68,56 @@ public final class Translator {
      * The input line should consist of a single SML instruction,
      * with its label already removed.
      */
-//    private Instruction getInstruction(String label) {
-//        if (line.isEmpty())
-//            return null;
-//
-//        String opcode = scan();
-//        switch (opcode) {
-//            case AddInstruction.OP_CODE -> {
-//                String r = scan();
-//                String s = scan();
-//                return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
-//            }
-//            case SubInstruction.OP_CODE -> {
-//                String r = scan();
-//                String s = scan();
-//                return new SubInstruction(label, Register.valueOf(r), Register.valueOf(s));
-//            }
-//            case MulInstruction.OP_CODE -> {
-//                String r = scan();
-//                String s = scan();
-//                return new MulInstruction(label, Register.valueOf(r), Register.valueOf(s));
-//            }
-//            case DivInstruction.OP_CODE -> {
-//                String r = scan();
-//                String s = scan();
-//                return new DivInstruction(label, Register.valueOf(r), Register.valueOf(s));
-//            }
-//            case OutInstruction.OP_CODE -> {
-//                String r = scan();
-////                String s = scan();
-//                return new OutInstruction(label, Register.valueOf(r));
-//            }
-//            case MovInstruction.OP_CODE -> {
-//                String r = scan();
-//                String s = scan();
-//                return new MovInstruction(label, Register.valueOf(r), Integer.valueOf(s)); //TODO: Check the type here are int is used in AddInstruction
-//            }
-//            case JnzInstruction.OP_CODE -> {
-//                String r = scan();
-//                String s = scan();
-//                return new JnzInstruction(label, Register.valueOf(r), String.valueOf(s));
-//            }
-//            // TODO: add code for all other types of instructions - * DONE *
-//
-//
-//
-//            default -> {
-//                System.out.println("Unknown instruction: " + opcode);
-//                // TODO: Possibly terminate program upon unknown instruction
-////                Main.gracefulExitWithException("Unknown instruction: " + opcode);
-//            }
-////          **** Replacement for switch using reflection ****
-//            // TODO: Then, replace the switch by using the Reflection API
-//            // - TODO: convert read opcode to format used to call the relevant instructions
-//            Class<?> c;
-//            c = Class.forName()
-//
-//            // java.lang.reflect.Constructor.newInstance();
-////            Class.forName("AddInstruction");
-//            // TODO: Next, use dependency injection to allow this machine class
-//            //       to work with different sets of opcodes (different CPUs)
-//        }
-//        return null;
-//    }
     private Instruction getInstruction(String label) {
         if (line.isEmpty())
             return null;
 
         String opcode = scan();
-//          **** Replacement for switch using reflection ****
-            // TODO: Then, replace the switch by using the Reflection API
-            // - TODO: convert read opcode to format used to call the relevant instructions
-
-            Class<?> c;
-            try {
-                c = Class.forName(opCodeToFullyQualified(opcode));
-//                Constructor[] constructor
-                // Source: Week 4, Question 1
-                Constructor<?>[] construct = c.getConstructors();
-                System.out.println(construct.length);
-                System.out.println(construct[0]);
-                System.out.println(Arrays.toString(c.getConstructors())); // TO REMOVE - added for debugging purposes
-                // TODO: count the number of constructions and then
-//                int classConstructorCount = c.getConstructors().length;
-//                String[] wordsSplit = parametersToStringArray(scan());
-//                String[] wordsSplit2 = parametersToStringArray(scan());
-//                String[] wordsSplit3 = parametersToStringArray(scan());
-//                String[] wordsSplit4 = parametersToStringArray(scan());
-                // Source: Week 4, Question 2
-//                System.out.println(classConstructorCount);
-                parameterTypesToStringArray(Arrays.toString(c.getConstructors()));
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e); // TODO: change this - intellij generated
+        switch (opcode) {
+            case AddInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
-        // java.lang.reflect.Constructor.newInstance();
-//            Class.forName("AddInstruction");
-            // TODO: Next, use dependency injection to allow this machine class
-            //       to work with different sets of opcodes (different CPUs)
+            case SubInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new SubInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
+            case MulInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new MulInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
+            case DivInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new DivInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
+            case OutInstruction.OP_CODE -> {
+                String r = scan();
+//                String s = scan();
+                return new OutInstruction(label, Register.valueOf(r));
+            }
+            case MovInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new MovInstruction(label, Register.valueOf(r), Integer.valueOf(s)); //TODO: Check the type here are int is used in AddInstruction
+            }
+            case JnzInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new JnzInstruction(label, Register.valueOf(r), String.valueOf(s));
+            }
+            // TODO: add code for all other types of instructions - * DONE *
+            default -> {
+                System.out.println("Unknown instruction: " + opcode);
+                // TODO: Then, replace the switch by using the Reflection API
+                // TODO: Next, use dependency injection to allow this machine class
+                //       to work with different sets of opcodes (different CPUs)
+            }
+        }
         return null;
-    }
-
-    private String opCodeToFullyQualified(String opcode) {
-        // to convert incoming opcode string ready for constructor
-        // TODO: unsure whether to concatenate here of in the getInstruction
-        return "sml.instruction." + opcode.substring(0,1).toUpperCase() + opcode.substring(1) + "Instruction";
-    }
-
-    private String[] parameterTypesToStringArray(String word) {
-        // Source Week 4, Question 1
-        String[] splitWord = word.split("(?<=\\()[^\\)\\)]*(?=])");
-
-//        for (int i = 0; i < splitWord.length; i++) {
-//            Pattern p = Pattern.compile("([$_A-Za-z0-9]+?\\.)+([$_A-Za-z0-9]+.*)");
-            String regex = "\\((.*?)\\)";
-            Pattern p = Pattern.compile("\\((.*?)\\)");
-            Matcher m = p.matcher(word);
-            if (m.find()){
-//                m = p.matcher(word);
-                word = m.group(1);
-            }
-            p = Pattern.compile("([$_A-Za-z0-9]+?\\.)+([$_A-Za-z0-9]+.*)");
-            while (m.find()){
-                word = m.replaceAll("$2");
-                m = p.matcher(word);
-            }
-//        }
-        System.out.println("Word: " + word);
-        return splitWord;
     }
 
     private String getLabel() {
@@ -224,3 +147,88 @@ public final class Translator {
         return line;
     }
 }
+
+
+//    /**
+//     * Translates the current line into an instruction with the given label
+//     *
+//     * @param label the instruction label
+//     * @return the new instruction
+//     * <p>
+//     * The input line should consist of a single SML instruction,
+//     * with its label already removed.
+//     */
+//    private Instruction getInstruction(String label) {
+//        if (line.isEmpty())
+//            return null;
+//
+//        String opcode = scan();
+////          **** Replacement for switch using reflection ****
+//            // TODO: Then, replace the switch by using the Reflection API
+//            // - TODO: convert read opcode to format used to call the relevant instructions
+//        // for testing
+//
+//
+//        Class<?> c;
+//        try {
+//            c = Class.forName(opCodeToFullyQualified(opcode));
+////          // Get a list of the constructors for the class, so we know how many parameters to pass.
+//            // Source: Week 4, Question 1
+//            Constructor<?>[] construct = c.getConstructors();
+//            System.out.println(construct.length);
+//            System.out.println(construct[0]);
+//            System.out.println(Arrays.toString(c.getConstructors())); // TO REMOVE - added for debugging purposes
+//            // TODO: count the number of constructions and then
+//            List<?> constructorlist = new ArrayList();
+//
+//
+//                // Source: Week 4, Question 2
+////                System.out.println(classConstructorCount);
+//                parameterTypesToStringArray(Arrays.toString(c.getConstructors()));
+//            } catch (ClassNotFoundException e) {
+//                throw new RuntimeException(e); // TODO: change this - intellij generated
+//            }
+//        // java.lang.reflect.Constructor.newInstance();
+////            Class.forName("AddInstruction");
+//            // TODO: Next, use dependency injection to allow this machine class
+//            //       to work with different sets of opcodes (different CPUs)
+//        return null;
+//    }
+
+//    /**
+//     * Translates the current line into an instruction with the given label
+//     *
+//     * @param opcode the instruction opcode
+//     * @return a fully qualified Java class name
+//     * <p>
+//     */
+//    private String opCodeToFullyQualified(String opcode) {
+//        // to convert incoming opcode string ready for constructor
+//        // TODO: unsure whether to concatenate here of in the getInstruction
+//        return "sml.instruction." + opcode.substring(0,1).toUpperCase() + opcode.substring(1) + "Instruction";
+//    }
+
+//    private String[] parameterTypesToStringArray(String word) {
+//        // currently not working
+//        // Source Week 4, Question 1
+//        String[] splitWord = word.split("(?<=\\()[^\\)\\)]*(?=])");
+//
+////        for (int i = 0; i < splitWord.length; i++) {
+////            Pattern p = Pattern.compile("([$_A-Za-z0-9]+?\\.)+([$_A-Za-z0-9]+.*)");
+//            String regex = "\\((.*?)\\)";
+//            Pattern p = Pattern.compile("\\((.*?)\\)");
+//            Matcher m = p.matcher(word);
+//            if (m.find()){
+////                m = p.matcher(word);
+//                word = m.group(1);
+//            }
+//            p = Pattern.compile("([$_A-Za-z0-9]+?\\.)+([$_A-Za-z0-9]+.*)");
+//            while (m.find()){
+//                word = m.replaceAll("$2");
+//                m = p.matcher(word);
+//            }
+////        }
+//        System.out.println("Word: " + word);
+//        return splitWord;
+//    }
+
