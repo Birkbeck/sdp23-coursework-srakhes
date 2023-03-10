@@ -1,1 +1,1 @@
-add EAX EBX
+sub EAX EBX

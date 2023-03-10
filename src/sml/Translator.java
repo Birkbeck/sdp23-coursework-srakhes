@@ -5,12 +5,15 @@ import sml.instruction.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.lang.reflect.Constructor;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import static sml.Registers.Register;
 
@@ -117,7 +120,7 @@ public final class Translator {
 //            }
 ////          **** Replacement for switch using reflection ****
 //            // TODO: Then, replace the switch by using the Reflection API
-//            // - TODO: convert read opcode to format used to call the relevent insturctions
+//            // - TODO: convert read opcode to format used to call the relevant instructions
 //            Class<?> c;
 //            c = Class.forName()
 //
@@ -135,18 +138,28 @@ public final class Translator {
         String opcode = scan();
 //          **** Replacement for switch using reflection ****
             // TODO: Then, replace the switch by using the Reflection API
-            // - TODO: convert read opcode to format used to call the relevent insturctions
+            // - TODO: convert read opcode to format used to call the relevant instructions
+
             Class<?> c;
             try {
                 c = Class.forName(opCodeToFullyQualified(opcode));
+//                Constructor[] constructor
                 // Source: Week 4, Question 1
+                Constructor<?>[] construct = c.getConstructors();
+                System.out.println(construct.length);
+                System.out.println(construct[0]);
                 System.out.println(Arrays.toString(c.getConstructors())); // TO REMOVE - added for debugging purposes
                 // TODO: count the number of constructions and then
-                int classConstructorCount = c.getConstructors().length;
+//                int classConstructorCount = c.getConstructors().length;
+//                String[] wordsSplit = parametersToStringArray(scan());
+//                String[] wordsSplit2 = parametersToStringArray(scan());
+//                String[] wordsSplit3 = parametersToStringArray(scan());
+//                String[] wordsSplit4 = parametersToStringArray(scan());
                 // Source: Week 4, Question 2
-                System.out.println(classConstructorCount);
+//                System.out.println(classConstructorCount);
+                parameterTypesToStringArray(Arrays.toString(c.getConstructors()));
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e); // TODO: chance this - intellij
+                throw new RuntimeException(e); // TODO: change this - intellij generated
             }
         // java.lang.reflect.Constructor.newInstance();
 //            Class.forName("AddInstruction");
@@ -161,9 +174,27 @@ public final class Translator {
         return "sml.instruction." + opcode.substring(0,1).toUpperCase() + opcode.substring(1) + "Instruction";
     }
 
-    private ArrayList<String> parametersToStringArray(String word) {
-//        TODO: split based on delimiter of ','
-        return returnArray ArrayList<String> = new ArrayList<String>();
+    private String[] parameterTypesToStringArray(String word) {
+        // Source Week 4, Question 1
+        String[] splitWord = word.split("(?<=\\()[^\\)\\)]*(?=])");
+
+//        for (int i = 0; i < splitWord.length; i++) {
+//            Pattern p = Pattern.compile("([$_A-Za-z0-9]+?\\.)+([$_A-Za-z0-9]+.*)");
+            String regex = "\\((.*?)\\)";
+            Pattern p = Pattern.compile("\\((.*?)\\)");
+            Matcher m = p.matcher(word);
+            if (m.find()){
+//                m = p.matcher(word);
+                word = m.group(1);
+            }
+            p = Pattern.compile("([$_A-Za-z0-9]+?\\.)+([$_A-Za-z0-9]+.*)");
+            while (m.find()){
+                word = m.replaceAll("$2");
+                m = p.matcher(word);
+            }
+//        }
+        System.out.println("Word: " + word);
+        return splitWord;
     }
 
     private String getLabel() {
